@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  api:
+    name: API (Laravel / Pest)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: api
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.4"
+          extensions: mbstring, dom, bcmath, pdo_sqlite, gd
+          coverage: xdebug
+
+      - name: Skip if api/ not scaffolded yet
+        id: guard
+        run: |
+          if [ -f composer.json ]; then echo "exists=true" >> "$GITHUB_OUTPUT"; else echo "exists=false" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Install dependencies
+        if: steps.guard.outputs.exists == 'true'
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Prepare env (SQLite)
+        if: steps.guard.outputs.exists == 'true'
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+
+      - name: Run Pest
+        if: steps.guard.outputs.exists == 'true'
+        run: php artisan test --coverage --min=80
+
+  web:
+    name: Web (React / Vite)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Skip if web/ not scaffolded yet
+        id: guard
+        run: |
+          if [ -f package.json ]; then echo "exists=true" >> "$GITHUB_OUTPUT"; else echo "exists=false" >> "$GITHUB_OUTPUT"; fi
+
+      - name: Setup Node
+        if: steps.guard.outputs.exists == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install dependencies
+        if: steps.guard.outputs.exists == 'true'
+        run: npm ci
+
+      - name: Lint
+        if: steps.guard.outputs.exists == 'true'
+        run: npm run lint --if-present
+
+      - name: Build
+        if: steps.guard.outputs.exists == 'true'
+        run: npm run build

@@ -1,0 +1,47 @@
+# ---- OS / editor ----
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+*.sublime-*
+
+# ---- Env / secrets ----
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# ---- PHP / Laravel (api/) ----
+/api/vendor/
+/api/node_modules/
+/api/public/build/
+/api/public/hot
+/api/storage/*.key
+/api/storage/pail
+/api/storage/framework/cache/*
+/api/storage/framework/sessions/*
+/api/storage/framework/views/*
+/api/storage/framework/testing/*
+/api/storage/logs/*
+/api/bootstrap/cache/*.php
+/api/.phpunit.result.cache
+/api/.phpunit.cache/
+/api/database/*.sqlite
+/api/database/*.sqlite-*
+/api/auth.json
+/api/.php-cs-fixer.cache
+
+# ---- Web (web/) ----
+/web/node_modules/
+/web/dist/
+/web/.vite/
+/web/coverage/
+/web/playwright-report/
+/web/test-results/
+/web/.env.local
+
+# ---- Build artifacts ----
+/dist/
+*.log

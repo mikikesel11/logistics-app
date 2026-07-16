@@ -1,0 +1,39 @@
+# Local development parity only. The production host (EcoWebHosting shared
+# hosting) does NOT run Docker — it provides managed MySQL + Redis via cPanel.
+# On machines without Docker, the API defaults to SQLite for local dev/tests
+# (see api/.env.example) and this file is unused.
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: logistics-mysql
+    environment:
+      MYSQL_DATABASE: logistics
+      MYSQL_USER: logistics
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: secret
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-psecret"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: logistics-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  mysql-data:
+  redis-data:
