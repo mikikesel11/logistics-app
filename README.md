@@ -59,7 +59,9 @@ npm run test:e2e          # Playwright: login → CRM → Load → BOL
 ```
 
 The web app calls `/api/*` on its own origin (dev proxy, or Laravel `public/`
-in production), so it needs no CORS config. More detail in
+in production), so it needs no CORS config. For the full step-by-step setup,
+seeded credentials, tests, and troubleshooting, see the
+[local deployment runbook](docs/deploy/local.md); more web detail in
 [web/README.md](web/README.md).
 
 ## Deployment
