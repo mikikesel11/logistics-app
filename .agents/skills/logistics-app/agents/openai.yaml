@@ -1,0 +1,6 @@
+interface:
+  display_name: "Logistics App"
+  short_description: "Repo-specific patterns and workflows for logistics-app"
+  default_prompt: "Use the logistics-app repo skill to follow existing architecture, testing, and workflow conventions."
+policy:
+  allow_implicit_invocation: true
