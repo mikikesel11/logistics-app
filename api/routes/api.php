@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\HealthController;
 use App\Http\Controllers\Api\LoadBoardController;
 use App\Http\Controllers\Api\LoadController;
+use App\Http\Controllers\Api\LocationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/health', HealthController::class);
@@ -19,6 +20,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('customers', CustomerController::class);
     Route::apiResource('carriers', CarrierController::class);
+    Route::apiResource('locations', LocationController::class);
 
     Route::apiResource('loads', LoadController::class);
     Route::patch('loads/{load}/status', [LoadController::class, 'updateStatus']);

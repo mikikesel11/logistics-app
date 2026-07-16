@@ -45,6 +45,9 @@ it('generates a BOL from a load and snapshots parties + freight', function () {
                 'load_id' => $load->id,
                 'is_ready' => true, // sync queue renders inline
                 'freight' => [['description' => 'Pallets of goods', 'pieces' => 12]],
+                // Origin/destination addresses are snapshotted onto the BOL.
+                'ship_from' => ['state' => 'TX'],
+                'ship_to' => ['state' => 'CA'],
             ],
         ]);
 

@@ -1,0 +1,31 @@
+import { fileURLToPath, URL } from 'node:url';
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
+
+// The API base is proxied in dev so the SPA and Laravel share an origin and
+// cookies/tokens behave the same as in production (where the SPA is served
+// from Laravel's public/). Override the target with VITE_API_PROXY if needed.
+const apiTarget = process.env.VITE_API_PROXY ?? 'http://localhost:8000';
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
+  server: {
+    port: 5173,
+    proxy: {
+      '/api': {
+        target: apiTarget,
+        changeOrigin: true,
+      },
+    },
+  },
+  build: {
+    outDir: 'dist',
+    sourcemap: false,
+  },
+});
