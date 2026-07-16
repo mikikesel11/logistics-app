@@ -32,7 +32,7 @@ CRM + Bill of Lading core end to end.
 | Roles | spatie/laravel-permission |
 | Cache/session/queue | Redis (prod) · array/sync (local); queue drained by cron |
 | PDF | barryvdh/laravel-dompdf |
-| Web | React 19 + TypeScript + Vite + Tailwind + shadcn/ui |
+| Web | React 19 + TypeScript + Vite + Tailwind (shadcn-style primitives) |
 | Tests | Pest (API) · Playwright (web E2E) |
 
 ## Local development
@@ -54,8 +54,13 @@ php artisan serve         # http://localhost:8000
 # Web
 cd ../web
 npm install
-npm run dev               # http://localhost:5173
+npm run dev               # http://localhost:5173 (proxies /api → :8000)
+npm run test:e2e          # Playwright: login → CRM → Load → BOL
 ```
+
+The web app calls `/api/*` on its own origin (dev proxy, or Laravel `public/`
+in production), so it needs no CORS config. More detail in
+[web/README.md](web/README.md).
 
 ## Deployment
 
