@@ -1,0 +1,550 @@
+# Instincts generated from https://github.com/mikikesel11/logistics-app
+# Generated: 2026-07-16T15:36:10.758Z
+# Version: 2.0
+# NOTE: This file supplements (does not replace) any existing curated instincts.
+# High-confidence manually curated instincts should be preserved alongside these.
+
+---
+id: logistics-app-commit-conventional
+trigger: "when writing a commit message"
+confidence: 0.85
+domain: git
+source: repo-analysis
+source_repo: https://github.com/mikikesel11/logistics-app
+---
+
+# Logistics App Commit Conventional
+
+## Action
+
+Use conventional commit format with prefixes: feat
+
+## Evidence
+
+- 5 commits analyzed
+- Detected conventional commit pattern
+- Examples: feat(api): Laravel 13 API foundation with auth, multi-tenancy, and response envelope, feat(api): CRM domain — customers, carriers, contacts, locations
+
+---
+id: logistics-app-commit-length
+trigger: "when writing a commit message"
+confidence: 0.6
+domain: git
+source: repo-analysis
+source_repo: https://github.com/mikikesel11/logistics-app
+---
+
+# Logistics App Commit Length
+
+## Action
+
+Write moderate-length commit messages (~66 characters)
+
+## Evidence
+
+- Average commit message length: 66 chars
+- Based on 5 commits
+
+---
+id: logistics-app-naming-files
+trigger: "when creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/mikikesel11/logistics-app
+---
+
+# Logistics App Naming Files
+
+## Action
+
+Use PascalCase naming convention
+
+## Evidence
+
+- Analyzed file naming patterns in repository
+- Dominant pattern: PascalCase
+
+---
+id: logistics-app-export-style
+trigger: "when exporting from a module"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/mikikesel11/logistics-app
+---
+
+# Logistics App Export Style
+
+## Action
+
+Prefer default exports
+
+## Evidence
+
+- Export pattern analysis
+- Dominant style: default
+
+---
+id: logistics-app-test-naming
+trigger: "when creating a test file"
+confidence: 0.85
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/mikikesel11/logistics-app
+---
+
+# Logistics App Test Naming
+
+## Action
+
+Name test files using the pattern: *.test.ts
+
+## Evidence
+
+- File pattern: *.test.ts
+- Consistent across test files
+
+---
+id: logistics-app-workflow-database-migration
+trigger: "when modifying the database schema or adding tables"
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/mikikesel11/logistics-app
+---
+
+# Logistics App Workflow Database Migration
+
+## Action
+
+Follow the database-migration workflow:
+1. Create migration file
+2. Update schema definitions
+3. Generate/update types
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~24x per month
+- Files: migrations/*
+
+---
+id: logistics-app-workflow-feature-development
+trigger: "when implementing a new feature"
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/mikikesel11/logistics-app
+---
+
+# Logistics App Workflow Feature Development
+
+## Action
+
+Follow the feature-development workflow:
+1. Add feature implementation
+2. Add tests for feature
+3. Update documentation
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~30x per month
+- Files: **/*.test.*, **/api/**
+
+---
+id: logistics-app-workflow-add-new-domain-entity-with-crud-and-api
+trigger: "when doing add new domain entity with crud and api"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/mikikesel11/logistics-app
+---
+
+# Logistics App Workflow Add New Domain Entity With Crud And Api
+
+## Action
+
+Follow the add-new-domain-entity-with-crud-and-api workflow:
+1. Create new Eloquent model in app/Models/
+2. Create database migration in database/migrations/
+3. Create factory in database/factories/
+4. Create Form Request validation classes in app/Http/Requests/[Domain]/
+5. Create Resource classes in app/Http/Resources/
+6. Create Controller in app/Http/Controllers/Api/
+7. Add CRUD endpoints to routes/api.php (or ensure controller is registered)
+8. Create feature tests in tests/Feature/
+9. Optionally: add repository/service layer and DTOs in app/Domain/[Domain]/
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: api/app/Models/*.php, api/database/migrations/*_create_*_table.php, api/database/factories/*Factory.php
+
+---
+id: logistics-app-workflow-add-feature-service-layer-with-tests
+trigger: "when doing add feature service layer with tests"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/mikikesel11/logistics-app
+---
+
+# Logistics App Workflow Add Feature Service Layer With Tests
+
+## Action
+
+Follow the add-feature-service-layer-with-tests workflow:
+1. Create new service/provider class in app/Domain/[Domain]/
+2. Define supporting data objects (DTOs, enums, exceptions) in app/Domain/[Domain]/
+3. If needed, add interface and implementation classes for repository/provider seams
+4. Write or update feature tests in tests/Feature/ to cover the new service's behavior
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: api/app/Domain/*/*.php, api/app/Domain/*/Data/*.php, api/app/Domain/*/Repositories/*.php
+
+---
+id: logistics-app-workflow-add-database-table-with-migration-and-factory
+trigger: "when doing add database table with migration and factory"
+confidence: 0.6
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/mikikesel11/logistics-app
+---
+
+# Logistics App Workflow Add Database Table With Migration And Factory
+
+## Action
+
+Follow the add-database-table-with-migration-and-factory workflow:
+1. Create migration file in database/migrations/
+2. Create Eloquent model in app/Models/
+3. Create factory in database/factories/
+4. Optionally: update seeders or add feature tests
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~2x per month
+- Files: api/database/migrations/*_create_*_table.php, api/app/Models/*.php, api/database/factories/*Factory.php
+
+---
+id: logistics-app-workflow-add-feature-test-for-api-endpoint
+trigger: "when doing add feature test for api endpoint"
+confidence: 0.65
+domain: workflow
+source: repo-analysis
+source_repo: https://github.com/mikikesel11/logistics-app
+---
+
+# Logistics App Workflow Add Feature Test For Api Endpoint
+
+## Action
+
+Follow the add-feature-test-for-api-endpoint workflow:
+1. Create or update test class in tests/Feature/
+2. Write tests for all CRUD operations, validation, and edge cases
+3. Run tests to verify behavior
+
+## Evidence
+
+- Workflow detected from commit patterns
+- Frequency: ~3x per month
+- Files: api/tests/Feature/*Test.php
+
+---
+id: logistics-app-instinct-file-naming
+trigger: "When creating a new file"
+confidence: 0.85
+domain: code-style
+source: repo-analysis
+source_repo: mikikesel11/logistics-app
+---
+
+# Logistics App Instinct File Naming
+
+## Action
+
+Name the file using PascalCase
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.files: PascalCase
+
+---
+id: logistics-app-instinct-function-naming
+trigger: "When defining a new function"
+confidence: 0.85
+domain: code-style
+source: repo-analysis
+source_repo: mikikesel11/logistics-app
+---
+
+# Logistics App Instinct Function Naming
+
+## Action
+
+Use camelCase for function names
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.functions: camelCase
+
+---
+id: logistics-app-instinct-class-naming
+trigger: "When defining a new class"
+confidence: 0.85
+domain: code-style
+source: repo-analysis
+source_repo: mikikesel11/logistics-app
+---
+
+# Logistics App Instinct Class Naming
+
+## Action
+
+Use PascalCase for class names
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.classes: PascalCase
+
+---
+id: logistics-app-instinct-constant-naming
+trigger: "When defining a new constant"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: mikikesel11/logistics-app
+---
+
+# Logistics App Instinct Constant Naming
+
+## Action
+
+Use SCREAMING_SNAKE_CASE for constant names
+
+## Evidence
+
+- Pattern in codeStyle.namingConventions.constants: SCREAMING_SNAKE_CASE
+
+---
+id: logistics-app-instinct-import-style
+trigger: "When importing modules"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: mikikesel11/logistics-app
+---
+
+# Logistics App Instinct Import Style
+
+## Action
+
+Use absolute import paths
+
+## Evidence
+
+- Pattern in codeStyle.importStyle: absolute
+
+---
+id: logistics-app-instinct-export-style
+trigger: "When exporting modules"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: mikikesel11/logistics-app
+---
+
+# Logistics App Instinct Export Style
+
+## Action
+
+Use default exports
+
+## Evidence
+
+- Pattern in codeStyle.exportStyle: default
+
+---
+id: logistics-app-instinct-test-file-pattern
+trigger: "When creating a test file"
+confidence: 0.9
+domain: testing
+source: repo-analysis
+source_repo: mikikesel11/logistics-app
+---
+
+# Logistics App Instinct Test File Pattern
+
+## Action
+
+Name the file with the pattern *.test.ts
+
+## Evidence
+
+- Pattern in testing.filePattern: *.test.ts
+
+---
+id: logistics-app-instinct-test-type
+trigger: "When writing tests"
+confidence: 0.7
+domain: testing
+source: repo-analysis
+source_repo: mikikesel11/logistics-app
+---
+
+# Logistics App Instinct Test Type
+
+## Action
+
+Write unit tests by default
+
+## Evidence
+
+- Pattern in testing.testTypes: unit
+
+---
+id: logistics-app-instinct-feature-test-api
+trigger: "When adding or modifying an API endpoint"
+confidence: 0.9
+domain: testing
+source: repo-analysis
+source_repo: mikikesel11/logistics-app
+---
+
+# Logistics App Instinct Feature Test Api
+
+## Action
+
+Create or update a feature test in api/tests/Feature/*Test.php
+
+## Evidence
+
+- Workflow: add-feature-test-for-api-endpoint
+- Pattern in files: api/tests/Feature/*Test.php
+
+---
+id: logistics-app-instinct-git-commit-format
+trigger: "When making a commit"
+confidence: 0.9
+domain: git
+source: repo-analysis
+source_repo: mikikesel11/logistics-app
+---
+
+# Logistics App Instinct Git Commit Format
+
+## Action
+
+Use conventional commit format with 'feat' prefix for new features
+
+## Evidence
+
+- Pattern in commits.prefixes: feat
+- Examples: feat(api): ...
+
+---
+id: logistics-app-instinct-git-commit-length
+trigger: "When writing a commit message"
+confidence: 0.7
+domain: git
+source: repo-analysis
+source_repo: mikikesel11/logistics-app
+---
+
+# Logistics App Instinct Git Commit Length
+
+## Action
+
+Keep the commit message around 66 characters on average
+
+## Evidence
+
+- Pattern in commits.averageLength: 66
+
+---
+id: logistics-app-instinct-add-new-domain-entity
+trigger: "When introducing a new business object with API CRUD operations"
+confidence: 0.95
+domain: workflow
+source: repo-analysis
+source_repo: mikikesel11/logistics-app
+---
+
+# Logistics App Instinct Add New Domain Entity
+
+## Action
+
+Follow the workflow: create model, migration, factory, validation, resource, controller, routes, feature tests, and optionally service layer/DTOs
+
+## Evidence
+
+- Workflow: add-new-domain-entity-with-crud-and-api
+- Example commit sequence and files
+
+---
+id: logistics-app-instinct-add-service-layer
+trigger: "When encapsulating business logic or integration behind a service/provider"
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: mikikesel11/logistics-app
+---
+
+# Logistics App Instinct Add Service Layer
+
+## Action
+
+Create service/provider class, supporting DTOs/enums, interfaces if needed, and feature tests
+
+## Evidence
+
+- Workflow: add-feature-service-layer-with-tests
+- Example commit sequence and files
+
+---
+id: logistics-app-instinct-add-database-table
+trigger: "When persisting a new kind of data in the database"
+confidence: 0.85
+domain: workflow
+source: repo-analysis
+source_repo: mikikesel11/logistics-app
+---
+
+# Logistics App Instinct Add Database Table
+
+## Action
+
+Create migration, Eloquent model, and factory; optionally update seeders or add feature tests
+
+## Evidence
+
+- Workflow: add-database-table-with-migration-and-factory
+- Example commit sequence and files
+
+---
+id: logistics-app-instinct-add-feature-test
+trigger: "When adding or modifying an API endpoint and needing test coverage"
+confidence: 0.9
+domain: workflow
+source: repo-analysis
+source_repo: mikikesel11/logistics-app
+---
+
+# Logistics App Instinct Add Feature Test
+
+## Action
+
+Create or update test class in tests/Feature/, write CRUD/validation/edge case tests, and run them
+
+## Evidence
+
+- Workflow: add-feature-test-for-api-endpoint
+- Example commit sequence and files
+
