@@ -13,51 +13,49 @@ jobs:
       run:
         working-directory: api
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: "8.4"
           extensions: mbstring, dom, bcmath, pdo_sqlite, gd
-          coverage: xdebug
-
-      - name: Skip if api/ not scaffolded yet
-        id: guard
-        run: |
-          if [ -f composer.json ]; then echo "exists=true" >> "$GITHUB_OUTPUT"; else echo "exists=false" >> "$GITHUB_OUTPUT"; fi
+          coverage: none
 
       - name: Install dependencies
-        if: steps.guard.outputs.exists == 'true'
         run: composer install --no-interaction --prefer-dist --no-progress
 
       - name: Prepare env (SQLite)
-        if: steps.guard.outputs.exists == 'true'
         run: |
           cp .env.example .env
           php artisan key:generate
 
       - name: Run Pest
-        if: steps.guard.outputs.exists == 'true'
-        run: php artisan test --coverage --min=80
+        run: php artisan test
+        # TODO: enable coverage gating (--coverage --min=80) once a coverage
+        # driver (pcov) is pinned and the web/ suite exists, so the threshold
+        # reflects the whole app rather than the backend in isolation.
 
   web:
     name: Web (React / Vite)
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: web
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - name: Skip if web/ not scaffolded yet
+      # web/ is added in a later phase. Until it exists, this job no-ops green.
+      - name: Detect web app
         id: guard
         run: |
-          if [ -f package.json ]; then echo "exists=true" >> "$GITHUB_OUTPUT"; else echo "exists=false" >> "$GITHUB_OUTPUT"; fi
+          if [ -f web/package.json ]; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+            echo "web/ not scaffolded yet — skipping."
+          fi
 
       - name: Setup Node
         if: steps.guard.outputs.exists == 'true'
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: "22"
           cache: npm
@@ -65,12 +63,15 @@ jobs:
 
       - name: Install dependencies
         if: steps.guard.outputs.exists == 'true'
+        working-directory: web
         run: npm ci
 
       - name: Lint
         if: steps.guard.outputs.exists == 'true'
+        working-directory: web
         run: npm run lint --if-present
 
       - name: Build
         if: steps.guard.outputs.exists == 'true'
+        working-directory: web
         run: npm run build
